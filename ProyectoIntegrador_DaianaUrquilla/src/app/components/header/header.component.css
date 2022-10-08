@@ -1,0 +1,32 @@
+img{
+    width: 140px;
+    padding-right: 15px;
+}
+
+.navbar{
+    background-color: #A64B63;        
+    color: #F2F2F2;
+}
+
+app-redes-sociales{
+    margin-right: 1%;    
+}
+header{
+    color: #F2F2F2;
+}
+#dropdown05{
+    color: #F2F2F2;
+}
+
+.btn{
+    background-color: #F2F2F2 ;
+    color: #A64B63;
+    border-style: none;   
+}
+
+@media(max-width: 766px){    
+    img{
+        width: 100px;
+    }   
+}
+
