@@ -3,14 +3,16 @@ img{
     padding-right: 15px;
 }
 
+.redes img{
+    width: 50px;
+    padding-right: 3px;
+}
+
 .navbar{
     background-color: #A64B63;        
     color: #F2F2F2;
 }
 
-app-redes-sociales{
-    margin-right: 1%;    
-}
 header{
     color: #F2F2F2;
 }
