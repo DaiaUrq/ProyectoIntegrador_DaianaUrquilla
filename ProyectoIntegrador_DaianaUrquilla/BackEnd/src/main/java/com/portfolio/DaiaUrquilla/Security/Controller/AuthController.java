@@ -5,6 +5,7 @@ import com.portfolio.DaiaUrquilla.Security.Dto.LoginUsuario;
 import com.portfolio.DaiaUrquilla.Security.Dto.NuevoUsuario;
 import com.portfolio.DaiaUrquilla.Security.Entity.Rol;
 import com.portfolio.DaiaUrquilla.Security.Entity.Usuario;
+import com.portfolio.DaiaUrquilla.Security.Enums.RolNombre;
 import com.portfolio.DaiaUrquilla.Security.Service.RolService;
 import com.portfolio.DaiaUrquilla.Security.Service.UsuarioService;
 import com.portfolio.DaiaUrquilla.Security.jwt.JwtProvider;
@@ -12,7 +13,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
     
     @Autowired
@@ -65,7 +65,7 @@ public class AuthController {
         Usuario usuario = new Usuario (nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), nuevoUsuario.getEmail(), passwordEncoder.encode(nuevoUsuario.getPassword()));
         
         Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getByRolNombre(RolNombre.ROL_USER).get());
+        roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
         
         if(nuevoUsuario.getRoles().contains("admin"))
             roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());

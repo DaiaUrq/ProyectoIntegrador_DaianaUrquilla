@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * @author Daia
  */
 @Repository
-public interface PersonaRepository extends JpaRepository<Persona,Integer>{
+public interface PersonaRepository extends JpaRepository<Persona,Long>{
     
 }

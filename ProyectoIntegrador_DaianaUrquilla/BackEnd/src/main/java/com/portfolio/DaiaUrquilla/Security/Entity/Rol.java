@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -18,7 +17,7 @@ public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id ;
-    @NotNull
+    
     @Enumerated(EnumType.STRING)
     private RolNombre rolNombre;
 

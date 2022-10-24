@@ -29,14 +29,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class MainSecurity extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsImpl userDetailsServicesImpl;
+    
     @Autowired
-    JwtEntryPoint jwtEntryPoint;    
+    JwtEntryPoint jwtEntryPoint; 
  
     @Bean
-    public JwtTokenFilter jwtTokenFilter(){
+    public JwtTokenFilter JwtTokenFilter(){
         return new JwtTokenFilter();
     }
-    
+      
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -44,10 +45,15 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated()
-                .and().exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers("**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(JwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

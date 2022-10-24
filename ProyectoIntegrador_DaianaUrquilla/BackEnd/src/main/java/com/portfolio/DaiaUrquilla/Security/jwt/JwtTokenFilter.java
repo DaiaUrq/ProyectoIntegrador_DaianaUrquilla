@@ -21,28 +21,27 @@ import org.springframework.web.filter.OncePerRequestFilter;
  *
  * @author Daia
  */
-@Component
 public class JwtTokenFilter extends OncePerRequestFilter{
 
-    private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);
+    private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
 
     @Autowired
     JwtProvider jwtProvider;
     @Autowired
-    UserDetailsImpl userDetailsImpl;
+    UserDetailsImpl userDetailsServiceImpl;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = getToken(request);
             if (token != null && jwtProvider.validateToken(token)) {
-//                String nombreUsuario = userDetailsImpl.loadUserByUsername(token);
                 String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
-                UserDetails userDetails = userDetailsImpl.loadUserByUsername(nombreUsuario);
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(nombreUsuario);
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails,
+                        null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
-        } catch (UsernameNotFoundException e) {
+        } catch (Exception e) {
             logger.error("Fallo el metodo doFilterInternal");
         }
         filterChain.doFilter(request, response);

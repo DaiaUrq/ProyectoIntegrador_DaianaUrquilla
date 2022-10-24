@@ -31,12 +31,12 @@ public class ImpPersonaService implements IPersonaService{
     }
     
     @Override
-    public void deletePersona(Integer id) {
+    public void deletePersona(Long id) {
         personaRepository.deleteById(id);
     }
 
     @Override
-    public Persona findPersona(Integer id) {
+    public Persona findPersona(Long id) {
         Persona persona = personaRepository.findById(id).orElse(null);
         return persona;
     }      
